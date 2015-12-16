@@ -1,0 +1,38 @@
+# -*- coding: utf-8 -*-
+$:.unshift('/Library/RubyMotion/lib')
+require 'motion/project/template/osx'
+begin
+  require 'bundler'
+  Bundler.require
+rescue LoadError
+  system('bundle install')
+  exit 1
+end
+
+SKIP_CODESIGN_TIMESTAMP = true
+
+module Motion::Project
+  class Builder
+    def codesign(config, platform)
+      app_bundle   = config.app_bundle_raw('MacOSX')
+      entitlements = File.join(config.versionized_build_dir(platform), 'Entitlements.plist')
+      if File.mtime(config.project_file) > File.mtime(app_bundle) or !system("/usr/bin/codesign --verify \"#{app_bundle}\" >& /dev/null")
+        App.info 'Codesign', app_bundle
+        File.open(entitlements, 'w') { |io| io.write(config.entitlements_data) }
+        sh "/usr/bin/codesign --deep --force --sign \"#{config.codesign_certificate}\"#{SKIP_CODESIGN_TIMESTAMP ? ' --timestamp=none' : ''} --entitlements \"#{entitlements}\" \"#{app_bundle}\""
+      end
+    end
+  end
+end
+
+Motion::Project::App.setup do |app|
+  app.icon                      = 'Icon.icns'
+  app.name                      = 'STLaunchHelper'
+  app.version                   = '1.0.0'
+  app.short_version             = '1.0.0'
+  app.identifier                = 'us.myepg.ScreensaverTracker.STLaunchHelper'
+  app.info_plist['NSUIElement'] = 1
+  app.deployment_target         = '10.9'
+  app.archs['MacOSX']           = ['x86_64']
+  app.codesign_certificate      = 'Developer ID Application: Eric Henderson (SKWXXEM822)'
+end

@@ -21,3 +21,21 @@ cpdmg:
   - "/Users/erichenderson/henderea@gmail.com/ScreensaverTracker-{{#vers}}.dmg"
   - "/Users/erichenderson/henderea@gmail.com/ScreensaverTracker.dmg"
   :vars: 
+rbrlh:
+  :command: cd
+  :sudo: 
+  :args:
+  - STLaunchHelper/
+  - "&&"
+  - rake
+  - build:release
+  :vars: 
+rcalh:
+  :command: cd
+  :sudo: 
+  :args:
+  - STLaunchHelper/
+  - "&&"
+  - rake
+  - clean:all
+  :vars: 

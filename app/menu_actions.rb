@@ -12,5 +12,9 @@ module MenuActions
 
   def setup
     MainMenu[:statusbar].subscribe(:status_update) { |_, sender| SUUpdater.sharedUpdater.checkForUpdates(sender) }
+    MainMenu[:statusbar].subscribe(:status_login) { |_, _|
+      Util.login_item_set_enabled(MainMenu[:statusbar].items[:status_login][:state] == NSOffState)
+      MainMenu[:statusbar].items[:status_login][:state] = Util.login_item_enabled? ? NSOnState : NSOffState
+    }
   end
 end

@@ -10,6 +10,7 @@ class AppDelegate
     MainMenu.build!
     MenuActions.setup
     MainMenu[:statusbar].items[:status_version][:title] = "Current Version: #{Info.version}"
+    MainMenu[:statusbar].items[:status_login][:state] = Util.login_item_enabled? ? NSOnState : NSOffState
     NSUserNotificationCenter.defaultUserNotificationCenter.setDelegate(self)
     distCenter = NSDistributedNotificationCenter.defaultCenter
     distCenter.addObserver(self, selector: 'onScreenSaverStarted', name: 'com.apple.screensaver.didstart', object: nil)
