@@ -10,6 +10,7 @@ class AppDelegate
     MainMenu.build!
     MenuActions.setup
     MainMenu[:statusbar].items[:status_version][:title] = "Current Version: #{Info.version}"
+    NSUserNotificationCenter.defaultUserNotificationCenter.setDelegate(self)
     distCenter = NSDistributedNotificationCenter.defaultCenter
     distCenter.addObserver(self, selector: 'onScreenSaverStarted', name: 'com.apple.screensaver.didstart', object: nil)
     distCenter.addObserver(self, selector: 'onScreenSaverStopped', name: 'com.apple.screensaver.didstop', object: nil)
@@ -41,14 +42,16 @@ class AppDelegate
 
   def displayDiff
     if Info.start_time
-      diff = NSDate.date - Info.start_time
+      diff            = NSDate.date - Info.start_time
       Info.start_time = nil
-      MainMenu[:statusbar].items[:status_last][:title] = get_time_display(diff)
+      time_display    = get_time_display(diff)
+      MainMenu[:statusbar].items[:status_last][:title] = time_display
+      Util.notify "You were away for #{time_display}"
     end
   end
 
   def get_time_display(diff)
-    "#{(diff/(3600.0)).floor}h #{((diff % (3600.0))/60.0).floor}m #{(diff % 60).floor}s".to_weak
+    "#{(diff/(3600.0)).floor}h #{((diff % (3600.0))/60.0).floor}m #{'%.3f' % (diff % 60)}s".to_weak
   end
 
   def feedParametersForUpdater(updater, sendingSystemProfile: sendingProfile)

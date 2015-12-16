@@ -112,6 +112,14 @@ module Util
     Util.log.level = :verbose
   end
 
+  def notify(msg)
+    notification                 = NSUserNotification.alloc.init
+    notification.title           = 'ScreensaverTracker'
+    notification.informativeText = msg.to_s
+    notification.soundName       = nil
+    NSUserNotificationCenter.defaultUserNotificationCenter.scheduleNotification(notification)
+  end
+
   def open_link(link)
     NSWorkspace.sharedWorkspace.openURL(NSURL.URLWithString(link));
   end
