@@ -1,0 +1,23 @@
+---
+cpds:
+  :command: cp
+  :sudo: 
+  :args:
+  - "-R"
+  - "./build/MacOSX-10.9-Release/ScreensaverTracker.app.dSYM"
+  - "./files/ScreensaverTracker.app-{{#vers}}.dSYM"
+  :vars: 
+mvdmg:
+  :command: mv
+  :sudo: 
+  :args:
+  - "./build/MacOSX-10.9-Release/ScreensaverTracker.dmg"
+  - "/Users/erichenderson/henderea@gmail.com/ScreensaverTracker-{{#vers}}.dmg"
+  :vars: 
+cpdmg:
+  :command: cp
+  :sudo: 
+  :args:
+  - "/Users/erichenderson/henderea@gmail.com/ScreensaverTracker-{{#vers}}.dmg"
+  - "/Users/erichenderson/henderea@gmail.com/ScreensaverTracker.dmg"
+  :vars: 
