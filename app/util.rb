@@ -89,6 +89,31 @@ end
 module Util
   module_function
 
+  def run_task(path, *args)
+    Util.log.debug "task: #{path}; args: #{args.inspect}"
+    task            = NSTask.alloc.init
+    task.launchPath = path
+    task.arguments  = args.map { |v| v.to_s }
+    task.launch
+    Util.log.debug 'task launched'
+    task.waitUntilExit
+    Util.log.debug 'task finished'
+  end
+
+  def run_task_no_wait(path, *args)
+    Util.log.debug "task: #{path}; args: #{args.inspect}"
+    task            = NSTask.alloc.init
+    task.launchPath = path
+    task.arguments  = args
+    task.launch
+    Util.log.debug 'task launched'
+  end
+
+  def send_pushover(message)
+    Util.log.info "Pushover: #{message}".to_weak
+    Util.run_task_no_wait('/usr/bin/env', 'ruby', NSBundle.mainBundle.pathForResource('pushover', ofType: 'rb'), message)
+  end
+
   def login_item_enabled?
     !SMJobCopyDictionary(KSMDomainUserLaunchd, 'us.myepg.ScreensaverTracker.STLaunchHelper').nil?
   end
@@ -134,11 +159,28 @@ module Util
   end
 
   def notify(msg)
+    Util.log.info "Notification: #{msg}".to_weak
     notification                 = NSUserNotification.alloc.init
     notification.title           = 'ScreensaverTracker'
     notification.informativeText = msg.to_s
     notification.soundName       = nil
     NSUserNotificationCenter.defaultUserNotificationCenter.scheduleNotification(notification)
+  end
+
+  def time_loop
+    Thread.start {
+      last_diff = 0
+      loop do
+        if Info.start_time
+          diff = (NSDate.date - Info.start_time).floor
+          Util.send_pushover("#{Info.computer_name} locked for #{(diff / 60).floor} minutes") if diff % 300 == 0 && diff > 0 && diff != last_diff
+          last_diff = diff
+        else
+          last_diff = 0
+        end
+        sleep(0.5)
+      end
+    }
   end
 
   def open_link(link)

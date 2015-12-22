@@ -39,3 +39,12 @@ rcalh:
   - rake
   - clean:all
   :vars: 
+rbdlh:
+  :command: cd
+  :sudo: 
+  :args:
+  - STLaunchHelper/
+  - "&&"
+  - rake
+  - build
+  :vars: 

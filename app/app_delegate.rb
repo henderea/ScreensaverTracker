@@ -13,27 +13,29 @@ class AppDelegate
     MainMenu[:statusbar].items[:status_login][:state] = Util.login_item_enabled? ? NSOnState : NSOffState
     NSUserNotificationCenter.defaultUserNotificationCenter.setDelegate(self)
     distCenter = NSDistributedNotificationCenter.defaultCenter
-    distCenter.addObserver(self, selector: 'onScreenSaverStarted', name: 'com.apple.screensaver.didstart', object: nil)
-    distCenter.addObserver(self, selector: 'onScreenSaverStopped', name: 'com.apple.screensaver.didstop', object: nil)
+    # distCenter.addObserver(self, selector: 'onScreenSaverStarted', name: 'com.apple.screensaver.didstart', object: nil)
+    # distCenter.addObserver(self, selector: 'onScreenSaverStopped', name: 'com.apple.screensaver.didstop', object: nil)
     distCenter.addObserver(self, selector: 'onScreenLocked', name: 'com.apple.screenIsLocked', object: nil)
     distCenter.addObserver(self, selector: 'onScreenUnlocked', name: 'com.apple.screenIsUnlocked', object: nil)
+    Util.time_loop
   end
 
-  def onScreenSaverStarted
-    Util.log.debug 'Screen saver started'
-    Info.start_time = NSDate.date unless Info.start_time
-  end
+  # def onScreenSaverStarted
+  #   Util.log.debug 'Screen saver started'
+  #   Info.start_time = NSDate.date unless Info.start_time
+  # end
 
   def onScreenLocked
     Util.log.debug 'Screen locked'
     Info.locked = true
     Info.start_time = NSDate.date unless Info.start_time
+    Util.send_pushover("#{Info.computer_name} locked")
   end
 
-  def onScreenSaverStopped
-    Util.log.debug 'Screen saver stopped'
-    self.displayDiff unless Info.locked?
-  end
+  # def onScreenSaverStopped
+  #   Util.log.debug 'Screen saver stopped'
+  #   self.displayDiff unless Info.locked?
+  # end
 
   def onScreenUnlocked
     Util.log.debug 'Screen unlocked'

@@ -69,4 +69,8 @@ module Info
   def locked=(locked)
     @locked = locked
   end
+
+  def computer_name
+    NSHost.currentHost.localizedName
+  end
 end

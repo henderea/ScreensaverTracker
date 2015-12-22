@@ -10,12 +10,13 @@ class MainMenu
 
   menuItem :status_last, '0m 0s'
   # menuItem :status_today, 'Today: 0m 0s'
+  menuItem :status_pushover, 'Configure Pushover'
   menuItem :status_login, 'Launch on login', state: NSOffState
   menuItem :status_update, 'Check for Updates'
   menuItem :status_version, 'Current Version: 0.0'
   menuItem :status_quit, 'Quit', preset: :quit
 
-  mainMenu(:app, 'DmgLocal') {
+  mainMenu(:app, 'ScreensaverTracker') {
     hide_others
     show_all
     ___
@@ -29,6 +30,8 @@ class MainMenu
   statusbarMenu(:statusbar, '', status_item_icon: NSImage.imageNamed('Status')) {
     status_last
     # status_today
+    ___
+    status_pushover
     ___
     status_login
     ___
