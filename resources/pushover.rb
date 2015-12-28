@@ -11,7 +11,8 @@ req = Net::HTTP::Post.new(url.path)
 req.set_form_data({
                       :token   => 'a2spq8JtjUp7fupRwYFPLDjynWr3mT',
                       :user    => user,
-                      :message => ARGV[0]
+                      :message => ARGV[1],
+                      :title   => ARGV[0]
                   })
 res             = Net::HTTP.new(url.host, url.port)
 res.use_ssl     = true

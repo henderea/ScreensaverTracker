@@ -110,8 +110,8 @@ module Util
   end
 
   def send_pushover(message)
-    Util.log.info "Pushover: #{message}".to_weak
-    Util.run_task_no_wait('/usr/bin/env', 'ruby', NSBundle.mainBundle.pathForResource('pushover', ofType: 'rb'), message)
+    Util.log.info "Pushover (#{Info.computer_name}): #{message}".to_weak
+    Util.run_task_no_wait('/usr/bin/env', 'ruby', NSBundle.mainBundle.pathForResource('pushover', ofType: 'rb'), Info.computer_name, message)
   end
 
   def login_item_enabled?
@@ -173,7 +173,7 @@ module Util
       loop do
         if Info.start_time
           diff = (NSDate.date - Info.start_time).floor
-          Util.send_pushover("#{Info.computer_name} locked for #{(diff / 60).floor} minutes") if diff % 300 == 0 && diff > 0 && diff != last_diff
+          Util.send_pushover("Locked for #{(diff / 60).floor} minutes") if diff % 300 == 0 && diff > 0 && diff != last_diff
           last_diff = diff
         else
           last_diff = 0

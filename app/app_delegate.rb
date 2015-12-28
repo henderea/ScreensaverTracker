@@ -29,7 +29,7 @@ class AppDelegate
     Util.log.debug 'Screen locked'
     Info.locked = true
     Info.start_time = NSDate.date unless Info.start_time
-    Util.send_pushover("#{Info.computer_name} locked")
+    Util.send_pushover('Locked')
   end
 
   # def onScreenSaverStopped
