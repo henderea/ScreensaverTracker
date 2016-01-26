@@ -46,5 +46,14 @@ rbdlh:
   - STLaunchHelper/
   - "&&"
   - rake
-  - build
+  - build:development
+  :vars: 
+bulh:
+  :command: cd
+  :sudo: 
+  :args:
+  - STLaunchHelper/
+  - "&&"
+  - bundle
+  - update
   :vars: 
