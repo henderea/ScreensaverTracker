@@ -12,14 +12,14 @@ mvdmg:
   :sudo: 
   :args:
   - "./build/MacOSX-10.9-Release/ScreensaverTracker.dmg"
-  - "/Users/erichenderson/henderea@gmail.com/ScreensaverTracker-{{#vers}}.dmg"
+  - "/Users/erichenderson/henderea@gmail.com/ScreensaverTracker/ScreensaverTracker-{{#vers}}.dmg"
   :vars: 
 cpdmg:
   :command: cp
   :sudo: 
   :args:
-  - "/Users/erichenderson/henderea@gmail.com/ScreensaverTracker-{{#vers}}.dmg"
-  - "/Users/erichenderson/henderea@gmail.com/ScreensaverTracker.dmg"
+  - "/Users/erichenderson/henderea@gmail.com/ScreensaverTracker/ScreensaverTracker-{{#vers}}.dmg"
+  - "/Users/erichenderson/henderea@gmail.com/ScreensaverTracker/ScreensaverTracker.dmg"
   :vars: 
 rbrlh:
   :command: cd
