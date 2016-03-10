@@ -57,3 +57,11 @@ bulh:
   - bundle
   - update
   :vars: 
+runpb:
+  :command:
+  - cpds
+  - mvdmg
+  - cpdmg
+  :sudo: 
+  :args: 
+  :vars: 
