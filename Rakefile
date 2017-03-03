@@ -10,7 +10,7 @@ rescue
   exit 1
 end
 
-SKIP_CODESIGN_TIMESTAMP = true
+SKIP_CODESIGN_TIMESTAMP = false
 
 module Motion::Project
   class Builder
@@ -29,8 +29,8 @@ end
 Motion::Project::App.setup do |app|
   app.icon                                  = 'Icon.icns'
   app.name                                  = 'ScreensaverTracker'
-  app.version                               = '1.0.8'
-  app.short_version                         = '1.0.8'
+  app.version                               = '1.0.9'
+  app.short_version                         = '1.0.9'
   app.identifier                            = 'us.myepg.ScreensaverTracker'
   app.info_plist['NSUIElement']             = true
   app.info_plist['SUFeedURL']               = 'https://rink.hockeyapp.net/api/2/apps/928a3dd77d804c99a4fad264738999fc'

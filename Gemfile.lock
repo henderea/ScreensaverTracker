@@ -2,9 +2,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     CFPropertyList (2.3.5)
-    activesupport (4.2.7.1)
+    activesupport (4.2.8)
       i18n (~> 0.7)
-      json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
@@ -48,10 +47,9 @@ GEM
     fourflusher (2.0.1)
     fuzzy_match (2.0.4)
     gh_inspector (1.0.3)
-    i18n (0.8.0)
-    json (1.8.6)
+    i18n (0.8.1)
     minitest (5.10.1)
-    molinillo (0.5.5)
+    molinillo (0.5.6)
     motion-cocoapods (1.8.1)
       cocoapods (>= 1.0.0)
     nanaimo (0.2.3)
@@ -59,7 +57,7 @@ GEM
     netrc (0.7.8)
     rake (12.0.0)
     ruby-macho (0.2.6)
-    thread_safe (0.3.5)
+    thread_safe (0.3.6)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     xcodeproj (1.4.2)
@@ -78,4 +76,4 @@ DEPENDENCIES
   rake
 
 BUNDLED WITH
-   1.14.3
+   1.14.5
