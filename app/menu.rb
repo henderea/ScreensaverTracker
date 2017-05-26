@@ -16,6 +16,10 @@ class MainMenu
   menuItem :status_version, 'Current Version: 0.0'
   menuItem :status_quit, 'Quit', preset: :quit
 
+  (1..5).each { |i|
+    menuItem :"status_recent_#{i}", '-', dynamicTitle: -> { Info.away_records[-i] || '-' }
+  }
+
   mainMenu(:app, 'ScreensaverTracker') {
     hide_others
     show_all
@@ -27,11 +31,21 @@ class MainMenu
     quit
   }
 
+  menu(:status_recent_menu, 'Recent records') {
+    (1..5).each { |i|
+      self << :"status_recent_#{i}"
+    }
+  }
+
+  menuItem :status_recent, 'Recent records', submenu: :status_recent_menu
+
   statusbarMenu(:statusbar, '', status_item_icon: NSImage.imageNamed('Status')) {
     status_last
     # status_today
     ___
     status_pushover
+    ___
+    status_recent
     ___
     status_login
     ___
@@ -40,4 +54,10 @@ class MainMenu
     ___
     status_quit
   }
+
+  def self.update_recents
+    (1..5).each { |i|
+      MainMenu[:status_recent_menu].items[:"status_recent_#{i}"].updateDynamicTitle
+    }
+  end
 end

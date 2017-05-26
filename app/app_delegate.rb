@@ -52,6 +52,8 @@ class AppDelegate
       time_display    = get_time_display(diff)
       MainMenu[:statusbar].items[:status_last][:title] = time_display
       Util.notify "You were away for #{time_display}"
+      Info.away_records << "#{Time.now.to_formatted_s(:db)} -> #{time_display}"
+      MainMenu.update_recents
       Util.send_pushover('Unlocked after less than 10 seconds.') if diff <= 10
     end
   end

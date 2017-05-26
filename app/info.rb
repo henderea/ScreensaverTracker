@@ -73,4 +73,8 @@ module Info
   def computer_name
     NSHost.currentHost.localizedName
   end
+
+  def away_records
+    @away_records ||= []
+  end
 end
