@@ -43,11 +43,11 @@ GEM
     cocoapods-try (1.1.0)
     colored2 (3.1.2)
     escape (0.0.4)
-    everyday-menu (1.4.2)
+    everyday-menu (1.4.3)
     fourflusher (2.0.1)
     fuzzy_match (2.0.4)
     gh_inspector (1.0.3)
-    i18n (0.8.1)
+    i18n (0.8.4)
     minitest (5.10.2)
     molinillo (0.5.7)
     motion-cocoapods (1.9.0)
@@ -79,4 +79,4 @@ DEPENDENCIES
   rake
 
 BUNDLED WITH
-   1.15.0
+   1.15.1

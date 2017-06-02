@@ -77,4 +77,8 @@ module Info
   def away_records
     @away_records ||= []
   end
+
+  def away_record_display_count
+    10
+  end
 end

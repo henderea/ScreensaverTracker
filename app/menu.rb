@@ -16,10 +16,6 @@ class MainMenu
   menuItem :status_version, 'Current Version: 0.0'
   menuItem :status_quit, 'Quit', preset: :quit
 
-  (1..5).each { |i|
-    menuItem :"status_recent_#{i}", '-', dynamicTitle: -> { Info.away_records[-i] || '-' }
-  }
-
   mainMenu(:app, 'ScreensaverTracker') {
     hide_others
     show_all
@@ -32,9 +28,6 @@ class MainMenu
   }
 
   menu(:status_recent_menu, 'Recent records') {
-    (1..5).each { |i|
-      self << :"status_recent_#{i}"
-    }
   }
 
   menuItem :status_recent, 'Recent records', submenu: :status_recent_menu
@@ -56,8 +49,15 @@ class MainMenu
   }
 
   def self.update_recents
-    (1..5).each { |i|
-      MainMenu[:status_recent_menu].items[:"status_recent_#{i}"].updateDynamicTitle
+    @away_record_count ||= 0
+    if Info.away_records.count > @away_record_count
+      ((@away_record_count + 1)..Info.away_records.count).each { |i|
+        MainMenu[:status_recent_menu].items << EverydayMenu::MenuItem.create(:"status_recent_#{i}", '-', dynamicTitle: -> { Info.away_records[-i] || '-' })
+      }
+      @away_record_count = Info.away_records.count
+    end
+    (1..@away_record_count).each { |i|
+      MainMenu[:status_recent_menu].items.each { |item| item.updateDynamicTitle }
     }
   end
 end
