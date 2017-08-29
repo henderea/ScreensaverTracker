@@ -28,8 +28,8 @@ end
 Motion::Project::App.setup do |app|
   app.icon                      = 'Icon.icns'
   app.name                      = 'STLaunchHelper'
-  app.version                   = '1.0.0'
-  app.short_version             = '1.0.0'
+  app.version                   = '1.0.1'
+  app.short_version             = '1.0.1'
   app.identifier                = 'us.myepg.ScreensaverTracker.STLaunchHelper'
   app.info_plist['NSUIElement'] = 1
   app.deployment_target         = '10.9'
